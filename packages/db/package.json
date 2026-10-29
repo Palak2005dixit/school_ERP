@@ -1,0 +1,23 @@
+{
+  "name": "@erp/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./test-database": "./src/test-database.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@erp/core": "*",
+    "@erp/shared": "*",
+    "dotenv": "^17.2.0",
+    "embedded-postgres": "^18.4.0-beta.17",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.0"
+  }
+}

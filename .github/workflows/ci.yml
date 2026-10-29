@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Installs the Linux PostgreSQL binaries used by the embedded test cluster.
+      # (embedded-postgres fetches them during npm ci; no Docker or service needed.)
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build

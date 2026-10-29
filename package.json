@@ -1,0 +1,44 @@
+{
+  "name": "school-erp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n db,api,web -c blue,green,magenta \"npm:dev:db\" \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:db": "tsx packages/db/src/dev-server.ts",
+    "dev:api": "tsx watch apps/api/src/server.ts",
+    "dev:web": "npm run dev -w @erp/web",
+    "db:setup": "tsx packages/db/src/cli.ts setup",
+    "db:migrate": "tsx packages/db/src/cli.ts migrate",
+    "db:seed": "tsx packages/db/src/cli.ts seed",
+    "db:reset": "tsx packages/db/src/cli.ts reset",
+    "db:backup": "tsx packages/db/src/cli.ts backup",
+    "db:restore": "tsx packages/db/src/cli.ts restore",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,css,md,json,sql,csv,yml,yaml}\"",
+    "check": "npm run typecheck && npm run lint && npm run test",
+    "build": "npm run build -w @erp/web"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^24.0.0",
+    "concurrently": "^9.2.0",
+    "eslint": "^9.39.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "prettier": "^3.6.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^4.1.12"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
